@@ -20,6 +20,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'email_verified_at',
+        'avatar',
+        'blocked_at',
+        'is_admin'
     ];
 
     /**
@@ -43,5 +47,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function hisGroups(){
+        return $this->hasMany(Group::class,'owner_id');
+    }
+    public function groups(){
+        return $this->belongsToMany(Group::class  , 'group_users' );
+    }
+    public function conversations(){
+        return $this->belongsToMany(Conversation::class);
     }
 }
