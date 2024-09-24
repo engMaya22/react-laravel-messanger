@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->longText('message')->nullable();//ifhe send just file 
-            $table->foreignId('sender_id')->constrained('users');
-            $table->foreignId('receiver_id')->nullable()->constrained('users');
-            $table->foreignId('conversation_id')->nullable()->constrained('conversations')->onDelete('cascade');
-            $table->foreignId('group_id')->nullable()->constrained('groups')->onDelete('cascade');
+            $table->foreignId('sender_id')->constrained('users');//
+            $table->foreignId('receiver_id')->nullable()->constrained('users');//null if it is send to group
+            $table->foreignId('conversation_id')->nullable()->constrained('conversations')->onDelete('cascade');//null if it is send to group
+            $table->foreignId('group_id')->nullable()->constrained('groups')->onDelete('cascade');//null if it is send to direct conversation
             $table->timestamps();
         });
         Schema::table('groups', function (Blueprint $table) {
